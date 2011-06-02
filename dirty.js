@@ -22,7 +22,7 @@ parse_state = enumerate([
 'COMMENT_END'
 ]);
 
-dirty = {
+var dirty = {
     isWhitespace: function(c) {
         return c == '\n' || c == '\r' || c == '\t' || c == ' '
     },
@@ -420,8 +420,9 @@ dirty = {
                 }
             }
         }
-        console.log("evaluating: " + this.data);
-        eval("this.result = " + this.data);
+        this.result = JSON.parse(this.data);
+        if (malformed)
+            this.result.malformed = true;
         return this.result;
     }
 }
